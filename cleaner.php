@@ -11,10 +11,11 @@ $s3 = new Zend_Service_Amazon_S3($parameters['key'], $parameters['secret']);
 $list = $s3->getObjectsByBucket($parameters['bucket']);
 
 foreach ($list as $file) {
-    $info = $s3->getInfo($parameters['bucket'] . '/' . $file);
+    $fullName = $parameters['bucket'] . '/' . $file;
+    $info = $s3->getInfo($fullName);
 
     if ($info['mtime'] < strtotime(-$parameters['ttl'] . ' days')) {
-        echo $file . ': ' . date('d.m.Y H:i:s', $info['mtime']) . '<br />';
+        $s3->removeObject($fullName);
     }
 }
 
