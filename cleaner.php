@@ -1,7 +1,5 @@
 <?php
 
-$bucket = 'zerkms-backup';
-
 $parameters = getParameters();
 
 require_once 'Zend/Service/Amazon/S3.php';
